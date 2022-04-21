@@ -1,0 +1,8 @@
+<title>Hello from Flask</title>
+<h1>Sports Scores</h1>
+<h2>football</h2>
+{% for match in out %}
+
+<p>{{ match['homeTeam']['name']}} {{match['score']['fullTime']['homeTeam'] }} - {{match['score']['fullTime']['awayTeam']}} {{match['awayTeam']['name']}}</p> 
+
+{% endfor %}
