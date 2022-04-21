@@ -10,7 +10,7 @@ def index():
     tomorrow= todays_date + timedelta(days=1)
     yesterday= todays_date - timedelta(days=1)
     out=get_scores()
-    return render_template('index.html', out=out, day=todays_date, tomorrow=tomorrow, yesterday=yesterday )
+    return render_template('index.html', matches=out, day=todays_date, tomorrow=tomorrow, yesterday=yesterday )
 
 @app.route("/date/<date>")
 def selectday(date):
@@ -20,7 +20,7 @@ def selectday(date):
     tomorrow= date_obj.date() + timedelta(days=1)
     yesterday= date_obj.date() - timedelta(days=1)
 
-    return render_template('index.html', out=out,day=date, tomorrow=tomorrow, yesterday=yesterday)    
+    return render_template('index.html', matches=out,day=date, tomorrow=tomorrow, yesterday=yesterday)    
 
 
 @app.route("/standings")
