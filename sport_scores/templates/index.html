@@ -1,6 +1,9 @@
 <title>Low Spec Scores</title>
-<h1>Sports Scores</h1>
+<a href="\"><h1>Sports Scores</h1></a>
+
+<a href="\date\{{yesterday}}">{{yesterday}}</a> today is: {{ day }} <a href="\date\{{tomorrow}}">{{tomorrow}}</a>
 <h2>football</h2>
+<h3>premier league</h3>
 {% for match in out %}
 
 <p>{{ match['homeTeam']['name']}} {{match['score']['fullTime']['homeTeam'] }} - {{match['score']['fullTime']['awayTeam']}} {{match['awayTeam']['name']}}</p> 
