@@ -1,17 +1,43 @@
 
 import requests
 from datetime import date
+import json
+
+with open("matches.json", "r") as read_file:
+    data = json.load(read_file)
+
+match_data =data['matches']   
+
+
+
+
 
 
 def get_scores():
+    with open("matches.json", "r") as read_file:
+        data = json.load(read_file)
+
+    match_data =data['matches']   
     todays_date = date.today()
+    strng= todays_date.strftime('%Y-%m-%d')
+    print(strng)
+    games =[]
+    for match in match_data:
+        if match['utcDate'][0:10] == strng:
+            print(match['id'])
+            games.append(match)  
+    return games    
+
+def date_scores(matchdate):
+    with open("matches.json", "r") as read_file:
+        data = json.load(read_file)
+
+    match_data =data['matches']   
     
-    r=requests.get("http://api.football-data.org/v2/competitions/2021/matches", headers={"X-Auth-Token":"769b4f8fdad94b5a9441ab475cdd1a8d"},params={"dateFrom":todays_date,"dateTo":todays_date}).json()
-    res=r['matches']
-    
-    return res 
-       
-def date_scores(date):
-    r=requests.get("http://api.football-data.org/v2/competitions/2021/matches", headers={"X-Auth-Token":"769b4f8fdad94b5a9441ab475cdd1a8d"},params={"dateFrom":date,"dateTo":date}).json()
-    res=r['matches']
-    return res
+    print(matchdate)
+    games =[]
+    for match in match_data:
+        if match['utcDate'][0:10] == matchdate:
+            print(match['id'])
+            games.append(match)  
+    return games    
