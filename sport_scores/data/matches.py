@@ -14,7 +14,7 @@ def get_match_data():
 
         match_data =data['matches'] 
         return match_data   
-
+print(get_match_data())
 
 
 def get_scores():
