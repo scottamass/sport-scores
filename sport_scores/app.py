@@ -1,5 +1,5 @@
 from flask import Flask, render_template
-from sport_scores.data.matches import get_scores,date_scores
+from sport_scores.data.matches import get_scores,date_scores,get_ts
 from datetime import date, timedelta , datetime as dt
 
 from sport_scores.data.standings import get_standings
@@ -18,7 +18,7 @@ def index():
     tomorrow= todays_date + timedelta(days=1)
     yesterday= todays_date - timedelta(days=1)
     out=get_scores()
-    return render_template('index.html', matches=out, day=todays_date, tomorrow=tomorrow, yesterday=yesterday )
+    return render_template('index.html', matches=out, day=todays_date, tomorrow=tomorrow, yesterday=yesterday,ts=get_ts() )
 
 @app.route("/date/<date>")
 def selectday(date):
@@ -28,10 +28,14 @@ def selectday(date):
     tomorrow= date_obj.date() + timedelta(days=1)
     yesterday= date_obj.date() - timedelta(days=1)
 
-    return render_template('index.html', matches=out,day=date, tomorrow=tomorrow, yesterday=yesterday)    
+    return render_template('index.html', matches=out,day=date, tomorrow=tomorrow, yesterday=yesterday,ts=get_ts())    
 
 
 @app.route("/standings")
 def standings():
     teams=get_standings()
     return render_template('standings.html', teams=teams) 
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'),404    

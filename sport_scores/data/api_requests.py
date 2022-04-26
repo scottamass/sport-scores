@@ -12,10 +12,14 @@ def get_match_data():
     with open("matches.json", "r") as read_file:
         data = json.load(read_file)
 
-        match_data =data['matches'] 
+        match_data = data['matches'] 
         return match_data   
+def get_ts():
+    with open("matches_ts.json","r") as read_file:
+        data=json.load(read_file)
 
-
+        ts=data['dateLoaded']
+        return ts
 
 def get_scores():
     
