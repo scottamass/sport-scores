@@ -47,7 +47,7 @@ def get_scores():
             
             all_games['cgames'].append(match)
     
-    print(all_games)
+    
     return all_games    
 
 def date_scores(matchdate):
@@ -56,17 +56,24 @@ def date_scores(matchdate):
       
     
     g=get_match_data()
-    all_games =[]
+    prem_games =[]
     for m in g['premiership']['matches']:
-        all_games.append(m)
+        prem_games.append(m)
+    champ_games =[]
     for m in g['championship']['matches']:
-        all_games.append(m)    
+        champ_games.append(m)    
     
-    
-    games =[]
-    for match in all_games:
+    games = {'prem':prem_games ,'champ':champ_games}
+    all_games ={'pgames':[],'cgames':[]}
+    for match in games['prem']:
         if match['utcDate'][0:10] == matchdate:
             
-            games.append(match)  
+            all_games['pgames'].append(match)  
+    for match in games['champ']:
+        if match['utcDate'][0:10] == matchdate:
             
-    return games    
+            all_games['cgames'].append(match)
+    
+   
+    return all_games    
+            
