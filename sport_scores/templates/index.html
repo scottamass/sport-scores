@@ -2,12 +2,25 @@
 {% block content %}
 <a href="\date\{{yesterday}}">{{yesterday}}</a> today is: {{ day }} <a href="\date\{{tomorrow}}">{{tomorrow}}</a>
 <h2>football</h2>
+{% if matches['pgames'] %}
 <h3>premier league</h3>
-{% for match in matches %}
+{% endif %}
+    {% for match in matches['pgames'] %}
 
 <p>{{ match['homeTeam']['name']}} {{match['score']['fullTime']['homeTeam'] }} - {{match['score']['fullTime']['awayTeam']}} {{match['awayTeam']['name']}}</p> 
 
 {% endfor %}
-<p>data loaded {{ts}}</p>
+
+{% if matches %}
+<h3>championship</h3>
+{% endif %}
+    {% for match in matches['cgames'] %}
+
+<p>{{ match['homeTeam']['name']}} {{match['score']['fullTime']['homeTeam'] }} - {{match['score']['fullTime']['awayTeam']}} {{match['awayTeam']['name']}}</p> 
+{% else %}
+<p>no games today</p>
+{% endfor %}
+
+<p>data loaded @ {{ts}}</p>
 {% endblock %}
 

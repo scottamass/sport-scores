@@ -1,7 +1,7 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,jsonify
 from sport_scores.data.matches import get_scores,date_scores,get_ts
 from datetime import date, timedelta , datetime as dt
-
+import json
 from sport_scores.data.standings import get_standings
 
 app = Flask(__name__)
@@ -36,6 +36,11 @@ def standings():
     teams=get_standings()
     return render_template('standings.html', teams=teams) 
 
+@app.route("/API")
+def api():
+    with open("matches_v2.json", "r") as read_file:
+        data = json.load(read_file)    
+    return jsonify(data)
 @app.errorhandler(404)
 def page_not_found(e):
     return render_template('404.html'),404    

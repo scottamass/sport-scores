@@ -3,8 +3,7 @@ import requests
 from datetime import date
 import json
 
-with open("matches.json", "r") as read_file:
-    data = json.load(read_file)
+
 
 def get_ts():
     with open("matches_ts.json","r") as read_file:
@@ -13,13 +12,14 @@ def get_ts():
         ts=data['dateLoaded']
         return ts    
 
-match_data =data['matches']   
+ 
 
 def get_match_data():
-    with open("matches.json", "r") as read_file:
+    with open("matches_v2.json", "r") as read_file:
         data = json.load(read_file)
 
-        match_data =data['matches'] 
+        match_data =data['competitions']
+        
         return match_data   
 
 
@@ -28,23 +28,45 @@ def get_scores():
     
     todays_date = date.today()
     strng= todays_date.strftime('%Y-%m-%d')
+    g=get_match_data()
+    prem_games =[]
+    for m in g['premiership']['matches']:
+        prem_games.append(m)
+    champ_games =[]
+    for m in g['championship']['matches']:
+        champ_games.append(m)    
     
-    games =[]
-    for match in get_match_data():
+    games = {'prem':prem_games ,'champ':champ_games}
+    all_games ={'pgames':[],'cgames':[]}
+    for match in games['prem']:
         if match['utcDate'][0:10] == strng:
             
-            games.append(match)  
-    return games    
+            all_games['pgames'].append(match)  
+    for match in games['champ']:
+        if match['utcDate'][0:10] == strng:
+            
+            all_games['cgames'].append(match)
+    
+    print(all_games)
+    return all_games    
 
 def date_scores(matchdate):
     
 
       
     
+    g=get_match_data()
+    all_games =[]
+    for m in g['premiership']['matches']:
+        all_games.append(m)
+    for m in g['championship']['matches']:
+        all_games.append(m)    
+    
     
     games =[]
-    for match in get_match_data():
+    for match in all_games:
         if match['utcDate'][0:10] == matchdate:
-            print(match['id'])
+            
             games.append(match)  
+            
     return games    
